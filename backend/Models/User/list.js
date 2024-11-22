@@ -7,6 +7,9 @@ const listUsers = (callback) => {
       console.error("Error executing query to list users: ", err);
       return callback(err);
     }
+    if (result.length === 0) {
+      return callback(null, null);
+    }
     return callback(null, result);
   });
 };

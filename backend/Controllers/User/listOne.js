@@ -11,6 +11,9 @@ const listOne = (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Error listing user" });
     }
+    if (!result) {
+      return res.status(404).json({ error: "User not found" });
+    }
     return res.status(200).json(result);
   });
 }
