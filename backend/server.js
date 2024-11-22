@@ -14,6 +14,9 @@ app.use('/users', userRoutes);
 const taskRoutes = require('./Routes/Task/routes.js');
 app.use('/tasks', taskRoutes);
 
+const shoppingListRoutes = require('./Routes/ShoppingList/routes.js');
+app.use('/shopping-list', shoppingListRoutes);
+
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
