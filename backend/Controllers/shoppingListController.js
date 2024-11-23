@@ -30,10 +30,25 @@ const listOne = (req, res) => {
 const update = (req, res) => {
   const { id } = req.params;
   const shoppingList = req.body;
-  shoppingListModel.update(id, shoppingList, (err, result) => {
-    if (err) return res.status(500).json({ message: 'Error updating shopping list', err });
+  
+  if (!id) return res.status(400).json({ message: 'Please provide an id' });
+  if (shoppingList.user_id) return res.status(400).json({ message: 'You cannot update the user_id' });
+
+  shoppingListModel.listOne(id, (err, result) => {
+    if (err) return res.status(500).json({ message: 'Error listing shopping list', err });
     if (!result) return res.status(404).json({ message: 'Shopping list not found' });
-    return res.status(200).json({ message: 'Shopping list updated successfully' });
+
+    const updatedShoppingList = {
+      item_name: shoppingList.item_name || result.item_name,
+      quantity: shoppingList.quantity || result.quantity,
+      status: shoppingList.status || result.status
+    };
+
+    shoppingListModel.update(id, updatedShoppingList, (err, result) => {
+      if (err) return res.status(500).json({ message: 'Error updating shopping list', err });
+      if (!result) return res.status(404).json({ message: 'Shopping list not found' });
+      return res.status(200).json({ message: 'Shopping list updated successfully' });
+    });
   });
 };
 
