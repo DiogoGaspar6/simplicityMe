@@ -12,6 +12,7 @@ router.get('/users', userController.list);
 router.get('/users/:id', userController.listOne);
 router.put('/users/:id', userController.update);
 router.delete('/users/:id', userController.deleteOne);
+router.post('/users/authenticate', userController.authenticate);
 
 // Task routes
 router.post('/tasks', taskController.create);

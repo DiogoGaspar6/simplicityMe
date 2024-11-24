@@ -1,10 +1,23 @@
 import React from 'react';
+import { AppBar, Toolbar, Typography, IconButton, Avatar } from '@mui/material';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
-const Header = () => {
+const Header = ({title, userName}) => {
   return (
-    <header className="bg-blue-500 text-white p-4">
-      <h1 className="text-2xl">My App</h1>
-    </header>
+    <AppBar position="static" sx={{ backgroundColor: '#FFF' }}>
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color="#000">
+          {title}
+        </Typography>
+        <IconButton color="#000">
+          <NotificationsIcon />
+        </IconButton>
+        <Avatar alt={userName} src="" />
+        <Typography variant="body1" component="div" sx={{ ml: 2 }} color="#000">
+          {userName}
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 

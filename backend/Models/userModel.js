@@ -2,12 +2,9 @@ const connection = require('../config');
 const bcrypt = require('bcrypt');
 
 const create = (user, callback) => {
-  const { username, email, password } = user;
-  bcrypt.hash(password, 10, (err, hash) => {
-    if (err) return callback(err);
-    const query = `INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)`;
-    connection.query(query, [username, email, hash], callback);
-  });
+  const { username, email, password_hash } = user;
+  const query = `INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)`;
+  connection.query(query, [username, email, password_hash], callback);
 };
 
 const list = (callback) => {
@@ -49,4 +46,13 @@ const deleteOne = (id, callback) => {
   });
 }
 
-module.exports = { create, list, listOne, update, deleteOne };
+const findByUsername = (username, callback) => {
+  const query = `SELECT * FROM user WHERE username = ?`;
+  connection.query(query, [username], (err, result) => {
+    if (err) return callback(err);
+    if (result.length === 0) return callback(null, null);
+    return callback(null, result[0]);
+  });
+}
+
+module.exports = { create, list, listOne, update, deleteOne, findByUsername };
