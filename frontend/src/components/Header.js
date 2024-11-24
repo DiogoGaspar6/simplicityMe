@@ -9,11 +9,11 @@ const Header = ({title, userName}) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color="#000">
           {title}
         </Typography>
-        <IconButton color="#000">
+        <IconButton sx={{ m: 1 }}>
           <NotificationsIcon />
         </IconButton>
-        <Avatar alt={userName} src="" />
-        <Typography variant="body1" component="div" sx={{ ml: 2 }} color="#000">
+        <Avatar alt={userName} src="" sx={{ m: 2 }}/>
+        <Typography variant="body1" component="div" sx={{ m: 2 }} color="#000">
           {userName}
         </Typography>
       </Toolbar>
